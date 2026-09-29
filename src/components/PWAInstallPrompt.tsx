@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import {
   Download,
@@ -13,6 +13,8 @@ import {
   Zap,
   Bell,
   WifiOff,
+  ExternalLink,
+  AlertCircle,
 } from 'lucide-react';
 
 interface PWAInstallPromptProps {
@@ -27,6 +29,15 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
   const [showModal, setShowModal] = useState(false);
   const [dismissedBanner, setDismissedBanner] = useState(false);
+  const [isIframe, setIsIframe] = useState(false);
+
+  useEffect(() => {
+    try {
+      setIsIframe(window.self !== window.top);
+    } catch {
+      setIsIframe(true);
+    }
+  }, []);
 
   // If running in standalone mode and not forced open, hide
   if (isInstalled && !forceOpen) {
@@ -42,14 +53,29 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
     }
   };
 
+  const handleOpenDirect = () => {
+    window.open(window.location.href, '_blank', 'noopener,noreferrer');
+  };
+
   const handleInstallClick = async () => {
+    if (isIframe) {
+      // In an iframe, browser blocks native installation prompt! Show guided modal with direct link
+      setShowModal(true);
+      return;
+    }
+
     if (isInstallable) {
-      const installed = await install();
-      if (installed) {
-        handleCloseModal();
+      try {
+        const installed = await install();
+        if (installed) {
+          handleCloseModal();
+        } else {
+          setShowModal(true);
+        }
+      } catch {
+        setShowModal(true);
       }
     } else {
-      // Show guided instructions modal
       setShowModal(true);
     }
   };
@@ -119,6 +145,26 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
             </div>
 
             <div className="p-5 space-y-4">
+              {/* Iframe Notice */}
+              {isIframe && (
+                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-900 space-y-2">
+                  <div className="flex items-center gap-2 font-bold">
+                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>ملاحظة هامة للتثبيت:</span>
+                  </div>
+                  <p className="text-[11px] leading-relaxed text-amber-800">
+                    متصفحات الهاتف (Chrome / Safari) تمنع التثبيت المباشر من داخل إطار المعاينة. يرجى فتح الرابط المباشر في المتصفح ثم الضغط على تثبيت:
+                  </p>
+                  <button
+                    onClick={handleOpenDirect}
+                    className="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center justify-center gap-2 cursor-pointer text-xs shadow-xs"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>فتح في صفحة مستقلة للمتصفح ↗️</span>
+                  </button>
+                </div>
+              )}
+
               {/* Features List */}
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-950 flex items-center gap-2">
