@@ -1,0 +1,6 @@
+{
+  "name": "نظام متابعة المناديب غير النشطين | Inactive Courier Tracker",
+  "description": "نظام ذكي لمتابعة المناديب النشطين المتوقفين عن العمل مع إرسال رسائل واتساب سريعة وإشعارات سطح المكتب للتذكير بمواعيد المتابعة والشيفتات.",
+  "requestFramePermissions": ["notifications"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

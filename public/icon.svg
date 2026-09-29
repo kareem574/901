@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bg)"/>
+
+  <!-- Inner Plate -->
+  <circle cx="256" cy="256" r="185" fill="#ffffff" filter="url(#shadow)"/>
+
+  <!-- Delivery Scooter Icon -->
+  <g transform="translate(116, 136) scale(0.55)">
+    <!-- Back Wheel -->
+    <circle cx="90" cy="340" r="65" fill="#0f172a"/>
+    <circle cx="90" cy="340" r="35" fill="#e2e8f0"/>
+    <circle cx="90" cy="340" r="18" fill="#10b981"/>
+
+    <!-- Front Wheel -->
+    <circle cx="410" cy="340" r="65" fill="#0f172a"/>
+    <circle cx="410" cy="340" r="35" fill="#e2e8f0"/>
+    <circle cx="410" cy="340" r="18" fill="#10b981"/>
+
+    <!-- Cargo Box -->
+    <rect x="25" y="140" width="130" height="120" rx="20" fill="#f59e0b"/>
+    <rect x="45" y="160" width="90" height="80" rx="10" fill="#d97706"/>
+    <!-- Box latch -->
+    <rect x="80" y="195" width="20" height="15" rx="4" fill="#ffffff"/>
+
+    <!-- Chassis Body -->
+    <path d="M 120 280 L 260 280 L 290 330 L 150 330 Z" fill="#0f172a"/>
+    <path d="M 155 240 Q 230 240 260 270 L 140 270 Z" fill="#334155"/>
+
+    <!-- Steering Column -->
+    <path d="M 370 140 L 410 320" stroke="#0f172a" stroke-width="26" stroke-linecap="round"/>
+
+    <!-- Handlebar & Headlight -->
+    <path d="M 330 140 L 410 140" stroke="#0f172a" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="415" cy="140" r="16" fill="#fef08a"/>
+    <path d="M 425 130 L 460 115 L 460 165 Z" fill="#fef08a" opacity="0.4"/>
+  </g>
+
+  <!-- Notification Alert Badge on top-right -->
+  <g transform="translate(325, 65)">
+    <circle cx="55" cy="55" r="48" fill="url(#badge)" filter="url(#shadow)"/>
+    <circle cx="55" cy="55" r="44" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <!-- Bell Icon in badge -->
+    <path d="M 55 35 C 47 35 41 41 41 49 C 41 62 35 67 35 67 L 75 67 C 75 67 69 62 69 49 C 69 41 63 35 55 35 Z" fill="#ffffff"/>
+    <circle cx="55" cy="74" r="4.5" fill="#ffffff"/>
+  </g>
+</svg>
